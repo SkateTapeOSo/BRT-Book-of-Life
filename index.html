@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BRT Book of Life</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf4e5;
+      color: #000;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #035dee;
+    }
+    p.declaration {
+      text-align: center;
+      max-width: 800px;
+      margin: 10px auto 30px;
+      font-size: 16px;
+      color: #444;
+    }
+    #searchBox {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background: #eee;
+    }
+    .active {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BRT Book of Life</h1>
+    <p class="declaration">
+      This archive serves as the formal publication of private status records, declarations of birth, and lineage entries held in trust by Bruce Royal Associations. All records herein are lawfully maintained under ecclesiastical jurisdiction, and represent living entries, sacred custodianship, and the rightful standing of the named.
+    </p>
+    <input id="searchBox" type="text" placeholder="🔍 Search by name or type…">
+    <table id="registry">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Aleyia Magik Bruce</td><td>Private Record of Live Birth</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Adrian Angelegue Bruce/Collins</td><td>Private Record of Life Status</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Jordan Christopher Anthony Bruce Sr.</td><td>Private Record of Life Status</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Lilianna Angeleque Rana Bruce</td><td>Private Record of Live Birth</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Jordan Christopher Anthony Bruce Jr.</td><td>Private Record of Live Birth</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Stella Renae Rose Bruce</td><td>Private Record of Live Birth</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+        <tr><td>Lesley May Miles</td><td>Private Record of Life Status</td><td>July 5, 2025</td><td class="active">Active</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const searchBox = document.getElementById('searchBox');
+    const rows = document.querySelectorAll('#registry tbody tr');
+    searchBox.addEventListener('input', () => {
+      const val = searchBox.value.toLowerCase();
+      rows.forEach(row => {
+        row.style.display = [...row.cells].some(cell =>
+          cell.textContent.toLowerCase().includes(val)
+        ) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
