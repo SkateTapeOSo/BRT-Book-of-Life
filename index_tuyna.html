@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book of Life – Tuyna R. Jones Registry</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf4e5;
+      color: #000;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #035dee;
+    }
+    p.description {
+      text-align: center;
+      max-width: 800px;
+      margin: 10px auto 30px;
+      font-size: 15px;
+      color: #444;
+    }
+    #searchBox {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
+    .badge-download {
+      background: #035dee;
+      color: white;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BRT Book of Life</h1>
+    <h2>Client Registry Index – Tuyna R. Jones</h2>
+    <p class="description">
+      This page catalogs documents officially submitted and recorded for Tuyna R. Jones through the Bruce Royal Trust Monthly Registry Service. Documents are archived under ecclesiastical jurisdiction and verified by the Trust.
+    </p>
+    <input id="searchBox" type="text" placeholder="🔍 Search by document title, type, or date...">
+    <table id="registry">
+      <thead>
+        <tr>
+          <th>Document Title</th>
+          <th>Type of Document</th>
+          <th>Date</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Puerto Rico Certificate of Legal Entity</td><td>Certificate of Registration</td><td>July 8, 2025</td><td><a class="badge-download" href="Puerto Rico Cetificate MEGA.pdf" target="_blank">PDF</a></td></tr>
+        <tr><td>Private Security Agreement</td><td>Private Contract</td><td>July 6, 2025</td><td><a class="badge-download" href="UCC3_ Private Security Agreement.pdf" target="_blank">PDF</a></td></tr>
+        <tr><td>UCC-1 Notice of Private Interest</td><td>UCC Filing</td><td>July 6, 2025</td><td><a class="badge-download" href="UCC-1_Notice Private Interest _ NY.pdf" target="_blank">PDF</a></td></tr>
+        <tr><td>Affidavit and Assignment of Interest</td><td>Affidavit of Ownership</td><td>July 6, 2025</td><td><a class="badge-download" href="UCC3_ Affidavit_ Assignment of Interest  (1).pdf" target="_blank">PDF</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    const searchBox = document.getElementById('searchBox');
+    const rows = document.querySelectorAll('#registry tbody tr');
+    searchBox.addEventListener('input', () => {
+      const val = searchBox.value.toLowerCase();
+      rows.forEach(row => {
+        row.style.display = [...row.cells].some(cell =>
+          cell.textContent.toLowerCase().includes(val)
+        ) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
