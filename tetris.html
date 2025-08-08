@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tetris</title>
+<style>
+  :root{--bg1:#0f2027;--bg2:#203a43;--bg3:#2c5364}
+  html,body{height:100%;margin:0}
+  body{display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--bg1),var(--bg2),var(--bg3));background-size:400% 400%;animation:bg 12s ease infinite;font-family:system-ui,-apple-system,Segoe UI,Roboto;color:#fff}
+  @keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+  .wrap{display:grid;grid-template-columns:auto 280px;gap:16px;align-items:start}
+  .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:12px}
+  #game{box-shadow:0 0 20px rgba(0,255,255,.8),0 0 40px rgba(0,255,255,.45);border-radius:12px;border:2px solid rgba(255,255,255,.4);background:#11141b; outline: none;}
+  h1{position:fixed;top:10px;left:50%;transform:translateX(-50%);font-size:22px;text-shadow:0 0 10px #0ff,0 0 16px #09f;margin:0}
+  ul{list-style:none;margin:0;padding:0}
+  li{padding:6px 8px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .hint{opacity:.75;font-size:12px;margin-top:6px}
+  .btn{cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:700;color:#00131a;background:linear-gradient(180deg,#00f0f0,#09f);box-shadow:0 0 14px rgba(0,255,255,.5)}
+  .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);backdrop-filter:blur(6px)}
+  .card{background:rgba(15,18,32,.95);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.5);text-align:center}
+  @media (max-width: 780px){.wrap{grid-template-columns:1fr;justify-items:center}}
+</style>
+</head>
+<body>
+  <h1>Play Tetris</h1>
+  <div class="wrap">
+    <canvas id="game" width="300" height="600" aria-label="Tetris Game" tabindex="0"></canvas>
+    <div class="panel">
+      <div class="panel"><strong>Score:</strong> <span id="score">0</span></div>
+      <div class="panel" style="margin-top:8px">
+        <strong>Scoreboard (Top 10)</strong>
+        <ul id="board"></ul>
+      </div>
+      <div class="panel" style="margin-top:8px">
+        <strong>Controls</strong>
+        <div class="hint">← → move · ↑ rotate · ↓ drop</div>
+        <button id="restart" class="btn" style="margin-top:8px">Restart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start Overlay -->
+  <div id="startOverlay" class="overlay">
+    <div class="card">
+      <h2 style="margin-top:0">Ready?</h2>
+      <p class="hint">Press the button to begin. Use Arrow Keys to play.</p>
+      <button id="startBtn" class="btn">Start Game</button>
+    </div>
+  </div>
+
+  <!-- Optional Firebase (Global Leaderboard). Safe to leave as-is; configure below. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    // GLOBAL LEADERBOARD CONFIG (Firebase Firestore) - optional
+    const firebaseConfig = window.firebaseConfig || {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+    };
+    let db = null;
+    try {
+      if (firebaseConfig && firebaseConfig.apiKey && firebaseConfig.projectId) {
+        const app = firebase.initializeApp(firebaseConfig);
+        db = firebase.firestore(app);
+        window.db = db;
+      }
+    } catch (e) {
+      console.warn('Firebase init skipped or failed:', e);
+      db = null;
+      window.db = null;
+    }
+  </script>
+
+<script>
+(function(){
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  const scoreEl = document.getElementById('score');
+  const boardEl = document.getElementById('board');
+  const startOverlay = document.getElementById('startOverlay');
+  const startBtn = document.getElementById('startBtn');
+  const restartBtn = document.getElementById('restart');
+
+  const COLS=10, ROWS=20, BLOCK=30;
+  const COLORS=[null,'#00f0f0','#0000f0','#f0a000','#f0f000','#00f000','#a000f0','#f00000'];
+  const SHAPES=[[],[[1,1,1,1]],[[2,0,0],[2,2,2]],[[0,0,3],[3,3,3]],[[4,4],[4,4]],[[0,5,5],[5,5,0]],[[0,6,0],[6,6,6]],[[7,7,0],[0,7,7]]];
+
+  let arena, player, dropCounter, dropInterval=900, lastTime, score, running=false;
+
+  function createMatrix(w,h){return Array.from({length:h},()=>Array(w).fill(0))}
+  function drawMatrix(m, o){m.forEach((row,y)=>row.forEach((v,x)=>{if(v){ctx.fillStyle=COLORS[v];ctx.shadowColor=COLORS[v];ctx.shadowBlur=12;ctx.fillRect((x+o.x)*BLOCK,(y+o.y)*BLOCK,BLOCK,BLOCK);ctx.shadowBlur=0;}}))}
+  function collide(ar,p){const m=p.matrix,o=p.pos;return m.some((row,y)=>row.some((v,x)=>v&&(ar[y+o.y]&&ar[y+o.y][x+o.x])!==0))}
+  function merge(ar,p){p.matrix.forEach((row,y)=>row.forEach((v,x)=>{if(v)ar[y+p.pos.y][x+p.pos.x]=v}))}
+  function rotate(m){const N=m.length;const r=Array.from({length:N},()=>Array(N).fill(0));for(let y=0;y<N;y++){for(let x=0;x<N;x++){r[x][N-1-y]=m[y][x]}}return r}
+
+  function reset(){const pieces='TJLOSZI';const type=pieces[(Math.random()*pieces.length)|0];player.matrix=SHAPES[pieces.indexOf(type)+1];player.pos.y=0;player.pos.x=(COLS/2|0)-(player.matrix[0].length/2|0);if(collide(arena,player)) gameOver()}
+  function drop(){player.pos.y++;if(collide(arena,player)){player.pos.y--;merge(arena,player);score+=10;updateScore();clearLines();reset()}dropCounter=0}
+  function move(d){player.pos.x+=d;if(collide(arena,player))player.pos.x-=d}
+  function spin(){const m=rotate(player.matrix);const pos=player.pos.x;let off=1;while(collide(arena,{pos:player.pos,matrix:m})){player.pos.x+=off;off=-(off+(off>0?1:-1));if(off>m[0].length){player.pos.x=pos;return}}player.matrix=m}
+  function clearLines(){let cleared=0;outer: for(let y=arena.length-1;y>=0;y--){for(let x=0;x<arena[y].length;x++){if(!arena[y][x])continue outer}const row=arena.splice(y,1)[0].fill(0);arena.unshift(row);cleared++;y++}if(cleared){score+=[0,100,300,500,800][cleared]||0;updateScore()}}
+
+  function draw(){
+    const g=ctx.createLinearGradient(0,0,canvas.width,canvas.height);
+    g.addColorStop(0,'#0f0c29');g.addColorStop(.5,'#302b63');g.addColorStop(1,'#24243e');
+    ctx.fillStyle=g;ctx.fillRect(0,0,canvas.width,canvas.height);
+    drawMatrix(arena,{x:0,y:0});drawMatrix(player.matrix,player.pos);
+  }
+  function loop(t=0){if(!running)return;const dt=t-lastTime;lastTime=t;dropCounter+=dt;if(dropCounter>dropInterval)drop();draw();requestAnimationFrame(loop)}
+
+  function updateScore(){scoreEl.textContent=String(score)}
+  function gameOver(){
+    running=false;
+    const initials=prompt('Game Over! Enter your initials:','AAA')||'---';
+    saveScoreLocal(initials,score);
+    submitScoreGlobal(initials,score);
+    loadScores();
+    startOverlay.style.display='flex';
+    startBtn.textContent='Play Again';
+    canvas.blur();
+  }
+
+  function saveScoreLocal(initials,score){const key='tetrisScores';const arr=JSON.parse(localStorage.getItem(key)||'[]');arr.push({initials,score});arr.sort((a,b)=>b.score-a.score);if(arr.length>10)arr.length=10;localStorage.setItem(key,JSON.stringify(arr))}
+  function getLocalScores(){return JSON.parse(localStorage.getItem('tetrisScores')||'[]')}
+
+  async function submitScoreGlobal(initials,score){
+    if(!window.db) return;
+    try{await window.db.collection('tetris_scores').add({initials,score,ts:Date.now()});}
+    catch(e){console.warn('Global score write failed:', e)}
+  }
+  async function getGlobalScores(){
+    if(!window.db) return null;
+    try{
+      const snap=await window.db.collection('tetris_scores').orderBy('score','desc').limit(10).get();
+      return snap.docs.map(d=>d.data());
+    }catch(e){console.warn('Global score read failed:',e);return null}
+  }
+
+  async function loadScores(){
+    const global=await getGlobalScores();
+    const list = (global && global.length ? global : getLocalScores());
+    boardEl.innerHTML=list.map(s=>`<li>${(s.initials||'---').toUpperCase()}: ${s.score}</li>`).join('');
+  }
+
+  function start(){
+    arena=createMatrix(COLS,ROWS);
+    player={pos:{x:0,y:0},matrix:null};
+    dropCounter=0;lastTime=0;score=0;updateScore();running=true;reset();
+    requestAnimationFrame(loop);
+    // ensure keyboard focus inside iframe
+    setTimeout(()=>canvas.focus(), 50);
+  }
+
+  startBtn.addEventListener('click',()=>{startOverlay.style.display='none';start()});
+  restartBtn.addEventListener('click',()=>{start()});
+
+  document.addEventListener('keydown',e=>{if(!running)return; if(e.key==='ArrowLeft')move(-1);else if(e.key==='ArrowRight')move(1);else if(e.key==='ArrowDown')drop();else if(e.key==='ArrowUp')spin()});
+
+  loadScores();
+})();
+</script>
+</body>
+</html>
