@@ -11,10 +11,12 @@
   body { font-family:'Merriweather',serif; background:var(--paper); color:var(--ink); margin:0; padding:22px; }
   .container { max-width:1200px; margin:auto; background:#fff; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,.08); padding:34px; }
   h1 { color:var(--blue); text-align:center; margin:0 0 8px; }
+  .meta { text-align:center; color:#333; margin-bottom:16px; }
   .disclaimer { border-left:4px solid var(--rose); padding-left:12px; margin:10px 0 18px; font-size:.95em; }
   .toolbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin: 10px 0 16px; }
-  #searchBox { flex:1 1 280px; padding:12px; border:1px solid #ccc; border-radius:8px; font-size:16px; }
+  #searchBox { flex:1 1 220px; padding:12px; border:1px solid #ccc; border-radius:8px; font-size:16px; }
   .button { background:var(--blue); color:#fff; text-decoration:none; padding:10px 14px; border-radius:10px; display:inline-block; }
+  select { padding:10px; border-radius:8px; border:1px solid #ccc; }
   table { width:100%; border-collapse:collapse; }
   th, td { padding:12px; border:1px solid #e3e3e3; text-align:left; }
   th { background:#f2f2f2; }
@@ -25,10 +27,20 @@
 <body>
   <div class="container">
     <h1>BRT Book of Life – PMA Certificates</h1>
+    <div class="meta">Last updated: 2025-08-15 20:27 UTC</div>
     <div class="disclaimer">Maintained by Bruce Royal Associations. Unauthorized use or misrepresentation prohibited.</div>
 
     <div class="toolbar">
       <input id="searchBox" type="text" placeholder="🔍 Search by PMA name, registration #, or date…">
+      <label for="sortBy" style="margin-left:auto;">Sort by:</label>
+      <select id="sortBy">
+        <option value="name-asc">Name (A → Z)</option>
+        <option value="name-desc">Name (Z → A)</option>
+        <option value="reg-asc">Registration # (Low → High)</option>
+        <option value="reg-desc">Registration # (High → Low)</option>
+        <option value="date-asc">Date (Oldest → Newest)</option>
+        <option value="date-desc">Date (Newest → Oldest)</option>
+      </select>
       <a class="button" href="PMACertificates_All.zip" download>⬇️ Download All (ZIP)</a>
     </div>
 
@@ -43,148 +55,148 @@
       </thead>
       <tbody>
         <tr>
-      <td>Bloomstone Legacy Association</td>
-      <td>—</td>
-      <td>—</td>
+      <td data-name="Bloomstone Legacy Association">Bloomstone Legacy Association</td>
+      <td data-reg="—">—</td>
+      <td data-date="July 25, 2025">July 25, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Bloomstone Legacy Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Circle of Enternal Unity</td>
-      <td>557529</td>
-      <td>July 4, 2025</td>
+      <td data-name="Circle of Enternal Unity">Circle of Enternal Unity</td>
+      <td data-reg="557529">557529</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Circle of Enternal Unity.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Crown Peak Association</td>
-      <td>557523</td>
-      <td>July 4, 2025</td>
+      <td data-name="Crown Peak Association">Crown Peak Association</td>
+      <td data-reg="557523">557523</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Crown Peak Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Crowned and Chosen</td>
-      <td>556922</td>
-      <td>June 26, 2025</td>
+      <td data-name="Crowned and Chosen">Crowned and Chosen</td>
+      <td data-reg="556922">556922</td>
+      <td data-date="June 26, 2025">June 26, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Crowned and Chosen.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Grady QP Association</td>
-      <td>558251</td>
-      <td>July 15, 2025</td>
+      <td data-name="Gan Shalom Associations">Gan Shalom Associations</td>
+      <td data-reg="556987">556987</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
+      <td><a class="badge" href="Certificate of Legal Entity - Gan Shalom Associations.pdf" target="_blank">PDF</a></td>
+    </tr>
+<tr>
+      <td data-name="Grady QP Association">Grady QP Association</td>
+      <td data-reg="558251">558251</td>
+      <td data-date="July 15, 2025">July 15, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Grady QP Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Harbor Legacy Union</td>
-      <td>557514</td>
-      <td>July 4, 2025</td>
+      <td data-name="Harbor Legacy Union">Harbor Legacy Union</td>
+      <td data-reg="557514">557514</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Harbor Legacy Union.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Heir By Nature</td>
-      <td>557511</td>
-      <td>July 4, 2025</td>
+      <td data-name="Heir By Nature">Heir By Nature</td>
+      <td data-reg="557511">557511</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Heir By Nature.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>HLAV Legacy Association</td>
-      <td>558257</td>
-      <td>July 15, 2025</td>
+      <td data-name="HLAV Legacy Association">HLAV Legacy Association</td>
+      <td data-reg="558257">558257</td>
+      <td data-date="July 15, 2025">July 15, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - HLAV Legacy Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Hyatt Legacy Associations</td>
-      <td>556988</td>
-      <td>June 27, 2025</td>
+      <td data-name="Hyatt Legacy Associations">Hyatt Legacy Associations</td>
+      <td data-reg="556988">556988</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Hyatt Legacy Associations.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Jo Jacobs Ascension</td>
-      <td>558409</td>
-      <td>July 17, 2025</td>
+      <td data-name="Jo Jacobs Ascension">Jo Jacobs Ascension</td>
+      <td data-reg="558409">558409</td>
+      <td data-date="July 17, 2025">July 17, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Jo Jacobs Ascension.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Jones Family Legacy Financial Association</td>
-      <td>557787</td>
-      <td>July 8, 2025</td>
+      <td data-name="Jones Family Legacy Financial Association">Jones Family Legacy Financial Association</td>
+      <td data-reg="557787">557787</td>
+      <td data-date="July 8, 2025">July 8, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Jones Family Legacy Financial Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Lev8 Kingdom</td>
-      <td>557521</td>
-      <td>July 4, 2025</td>
+      <td data-name="Lev8 Kingdom">Lev8 Kingdom</td>
+      <td data-reg="557521">557521</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Lev8 Kingdom.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Lotus Ignis</td>
-      <td>556989</td>
-      <td>June 27, 2025</td>
+      <td data-name="Lotus Ignis">Lotus Ignis</td>
+      <td data-reg="556989">556989</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Lotus Ignis.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Monarch Realm Associations</td>
-      <td>556990</td>
-      <td>June 27, 2025</td>
+      <td data-name="Monarch Realm Associations">Monarch Realm Associations</td>
+      <td data-reg="556990">556990</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Monarch Realm Associations.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Olupona Family Association</td>
-      <td>—</td>
-      <td>—</td>
+      <td data-name="Olupona Family Association">Olupona Family Association</td>
+      <td data-reg="—">—</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Olupona Family Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Rolling Bluffs</td>
-      <td>—</td>
-      <td>—</td>
+      <td data-name="Rolling Bluffs">Rolling Bluffs</td>
+      <td data-reg="—">—</td>
+      <td data-date="July 8, 2025">July 8, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Rolling Bluffs.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Ronqillo Real Party Assembly Association</td>
-      <td>557515</td>
-      <td>July 4, 2025</td>
+      <td data-name="Ronqillo Real Party Assembly Association">Ronqillo Real Party Assembly Association</td>
+      <td data-reg="557515">557515</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Ronqillo Real Party Assembly Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Royal Ecclesia Association</td>
-      <td>556564</td>
-      <td>June 23, 2025</td>
+      <td data-name="Royal Ecclesia Association">Royal Ecclesia Association</td>
+      <td data-reg="556564">556564</td>
+      <td data-date="June 23, 2025">June 23, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Royal Ecclesia Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>The Legacy of Hope Association</td>
-      <td>557517</td>
-      <td>July 4, 2025</td>
+      <td data-name="The Legacy of Hope Association">The Legacy of Hope Association</td>
+      <td data-reg="557517">557517</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - The Legacy of Hope Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>The Royal Lineage of Brown Association</td>
-      <td>—</td>
-      <td>—</td>
+      <td data-name="The Royal Lineage of Brown Association">The Royal Lineage of Brown Association</td>
+      <td data-reg="—">—</td>
+      <td data-date="June 26, 2025">June 26, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - The Royal Lineage of Brown Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Trey-Kristian-Harris Supreme Royalty Associations</td>
-      <td>557524</td>
-      <td>July 4, 2025</td>
+      <td data-name="Trey-Kristian-Harris Supreme Royalty Associations">Trey-Kristian-Harris Supreme Royalty Associations</td>
+      <td data-reg="557524">557524</td>
+      <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Trey-Kristian-Harris Supreme Royalty Associations.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Wellness Enchanted Ministries</td>
-      <td>556993</td>
-      <td>June 27, 2025</td>
+      <td data-name="Wellness Enchanted Ministries">Wellness Enchanted Ministries</td>
+      <td data-reg="556993">556993</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Wellness Enchanted Ministries.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
-      <td>Zion Association</td>
-      <td>556992</td>
-      <td>June 27, 2025</td>
+      <td data-name="Zion Association">Zion Association</td>
+      <td data-reg="556992">556992</td>
+      <td data-date="June 27, 2025">June 27, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Zion Association.pdf" target="_blank">PDF</a></td>
-    </tr>
-<tr>
-      <td>Gan Shalom Associations</td>
-      <td>556987</td>
-      <td>June 27, 2025</td>
-      <td><a class="badge" href="Certificate of Legal Entity - Gan Shalom Associations.pdf" target="_blank">PDF</a></td>
     </tr>
       </tbody>
     </table>
@@ -196,11 +208,60 @@
   </div>
 
   <script>
+    const tbody = document.querySelector('#registry tbody');
+    const getRows = () => Array.from(tbody.querySelectorAll('tr'));
+
+    function parseReg(val) {
+      // returns number or Infinity if blank, so blanks sort to bottom for asc
+      const n = parseInt(val.replace(/[^0-9]/g,''), 10);
+      return isNaN(n) ? Infinity : n;
+    }
+
+    function parseDate(val) {
+      if(!val || val.trim() === '—') return 0; // blanks first for asc; will handle after
+      const d = new Date(val + ' 00:00:00');
+      return d.getTime();
+    }
+
+    function sortRows(mode) {
+      const rows = getRows();
+      rows.sort((a,b) => {
+        const an = a.cells[0].dataset.name.toLowerCase();
+        const bn = b.cells[0].dataset.name.toLowerCase();
+        const ar = a.cells[1].dataset.reg;
+        const br = b.cells[1].dataset.reg;
+        const ad = a.cells[2].dataset.date;
+        const bd = b.cells[2].dataset.date;
+
+        switch(mode) {
+          case 'name-desc':
+            return bn.localeCompare(an);
+          case 'reg-asc':
+            return parseReg(ar) - parseReg(br);
+          case 'reg-desc':
+            return parseReg(br) - parseReg(ar);
+          case 'date-asc':
+            return parseDate(ad) - parseDate(bd) || an.localeCompare(bn);
+          case 'date-desc':
+            return parseDate(bd) - parseDate(ad) || an.localeCompare(bn);
+          case 'name-asc':
+          default:
+            return an.localeCompare(bn);
+        }
+      });
+      rows.forEach(r => tbody.appendChild(r));
+    }
+
+    // Initial sort by name asc
+    sortRows('name-asc');
+
+    document.getElementById('sortBy').addEventListener('change', (e) => sortRows(e.target.value));
+
+    // Search filter
     const box = document.getElementById('searchBox');
-    const rows = document.querySelectorAll('#registry tbody tr');
     box.addEventListener('input', () => {
       const q = box.value.toLowerCase();
-      rows.forEach(r => {
+      getRows().forEach(r => {
         r.style.display = [...r.cells].some(c => (c.textContent||'').toLowerCase().includes(q)) ? '' : 'none';
       });
     });
