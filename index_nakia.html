@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BRT Book of Life – Nakia John Lamarkous Brown El</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#000000;
+      --paper:#fdf4e5;
+      --accent:#035dee;
+      --rose:#dd8e8e;
+    }
+    body{font-family:'Merriweather',serif;background:var(--paper);color:var(--ink);margin:0;padding:24px;}
+    .container{max-width:1100px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.08);padding:32px;}
+    h1{color:var(--accent);text-align:center;margin:0 0 6px;}
+    h2{margin:6px 0 18px;text-align:center;font-weight:400;color:#222}
+    .disclaimer{border-left:4px solid var(--rose);padding-left:12px;margin:12px 0 24px;font-size:.95em;}
+    #searchBox{width:100%;padding:12px 14px;border:1px solid #ccc;border-radius:8px;margin:8px 0 18px;font-size:16px;}
+    table{width:100%;border-collapse:collapse;}
+    th,td{padding:12px;border:1px solid #e3e3e3;text-align:left;vertical-align:top;}
+    th{background:#f2f2f2;}
+    .badge{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:6px 10px;border-radius:8px;font-size:.9em}
+    .meta{font-size:.95em;color:#333}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BRT Book of Life</h1>
+    <h2>Registry: Nakia John Lamarkous Brown El</h2>
+    <div class="disclaimer">
+      Maintained by Bruce Royal Associations. Unauthorized use or misrepresentation is prohibited.
+    </div>
+
+    <input id="searchBox" type="text" placeholder="🔍 Search by title, number, or date…"/>
+
+    <table id="registry">
+      <thead>
+        <tr>
+          <th>Document Title</th>
+          <th>Type of Document</th>
+          <th>Instrument / Certificate #</th>
+          <th>Date</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Affidavit of Life</td>
+          <td>Affidavit</td>
+          <td class="meta">TRLOBA-100320291</td>
+          <td class="meta">Aug 9, 2025</td>
+          <td><a class="badge" href="Affidavit Of Life.pdf" target="_blank">View PDF</a></td>
+        </tr>
+        <tr>
+          <td>Declaration of Independence</td>
+          <td>Declaration</td>
+          <td class="meta">TRLOBA-100320290</td>
+          <td class="meta">Aug 9, 2025</td>
+          <td><a class="badge" href="Decleration of independence .pdf" target="_blank">View PDF</a></td>
+        </tr>
+        <tr>
+          <td>Petition for Name Restoration and Equity Notice</td>
+          <td>Petition</td>
+          <td class="meta">TRLOBA-100320288</td>
+          <td class="meta">Aug 9, 2025</td>
+          <td><a class="badge" href="PETITION FOR NAME RESTORATION AND EQUITY NOTICE.pdf" target="_blank">View PDF</a></td>
+        </tr>
+        <tr>
+          <td>Private Record of Live Birth</td>
+          <td>Record of Live Birth</td>
+          <td class="meta">TRLOBA-100320293</td>
+          <td class="meta">Jun 5, 1995</td>
+          <td><a class="badge" href="Private record of Live Birth .pdf" target="_blank">View PDF</a></td>
+        </tr>
+        <tr>
+          <td>Private Security Agreement</td>
+          <td>Agreement</td>
+          <td class="meta">TRLOBA-100320287</td>
+          <td class="meta">Aug 9, 2025</td>
+          <td><a class="badge" href="Private security Agreement .pdf" target="_blank">View PDF</a></td>
+        </tr>
+        <tr>
+          <td>Supreme Declaration &amp; Public Notice</td>
+          <td>Declaration &amp; Notice</td>
+          <td class="meta">TRLOBA-100320304</td>
+          <td class="meta">Aug 9, 2025</td>
+          <td><a class="badge" href="SUPREME DECLARATION & PUBLIC NOTICE 2.pdf" target="_blank">View PDF</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const box = document.getElementById('searchBox');
+    const rows = document.querySelectorAll('#registry tbody tr');
+    box.addEventListener('input', () => {
+      const q = box.value.toLowerCase();
+      rows.forEach(r => {
+        r.style.display = [...r.cells].some(c => (c.textContent || '').toLowerCase().includes(q)) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
