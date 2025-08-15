@@ -27,7 +27,7 @@
 <body>
   <div class="container">
     <h1>BRT Book of Life – PMA Certificates</h1>
-    <div class="meta">Last updated: 2025-08-15 20:27 UTC</div>
+    <div class="meta">Last updated: 2025-08-15 20:37 UTC</div>
     <div class="disclaimer">Maintained by Bruce Royal Associations. Unauthorized use or misrepresentation prohibited.</div>
 
     <div class="toolbar">
@@ -56,7 +56,7 @@
       <tbody>
         <tr>
       <td data-name="Bloomstone Legacy Association">Bloomstone Legacy Association</td>
-      <td data-reg="—">—</td>
+      <td data-reg="559027">559027</td>
       <td data-date="July 25, 2025">July 25, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Bloomstone Legacy Association.pdf" target="_blank">PDF</a></td>
     </tr>
@@ -146,13 +146,13 @@
     </tr>
 <tr>
       <td data-name="Olupona Family Association">Olupona Family Association</td>
-      <td data-reg="—">—</td>
+      <td data-reg="557518">557518</td>
       <td data-date="July 4, 2025">July 4, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Olupona Family Association.pdf" target="_blank">PDF</a></td>
     </tr>
 <tr>
       <td data-name="Rolling Bluffs">Rolling Bluffs</td>
-      <td data-reg="—">—</td>
+      <td data-reg="557784">557784</td>
       <td data-date="July 8, 2025">July 8, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - Rolling Bluffs.pdf" target="_blank">PDF</a></td>
     </tr>
@@ -176,7 +176,7 @@
     </tr>
 <tr>
       <td data-name="The Royal Lineage of Brown Association">The Royal Lineage of Brown Association</td>
-      <td data-reg="—">—</td>
+      <td data-reg="556991">556991</td>
       <td data-date="June 26, 2025">June 26, 2025</td>
       <td><a class="badge" href="Certificate of Legal Entity - The Royal Lineage of Brown Association.pdf" target="_blank">PDF</a></td>
     </tr>
@@ -212,13 +212,12 @@
     const getRows = () => Array.from(tbody.querySelectorAll('tr'));
 
     function parseReg(val) {
-      // returns number or Infinity if blank, so blanks sort to bottom for asc
       const n = parseInt(val.replace(/[^0-9]/g,''), 10);
       return isNaN(n) ? Infinity : n;
     }
 
     function parseDate(val) {
-      if(!val || val.trim() === '—') return 0; // blanks first for asc; will handle after
+      if(!val || val.trim() === '—') return 0;
       const d = new Date(val + ' 00:00:00');
       return d.getTime();
     }
@@ -252,12 +251,10 @@
       rows.forEach(r => tbody.appendChild(r));
     }
 
-    // Initial sort by name asc
     sortRows('name-asc');
 
     document.getElementById('sortBy').addEventListener('change', (e) => sortRows(e.target.value));
 
-    // Search filter
     const box = document.getElementById('searchBox');
     box.addEventListener('input', () => {
       const q = box.value.toLowerCase();
