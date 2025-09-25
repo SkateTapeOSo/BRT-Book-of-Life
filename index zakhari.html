@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book of Life – Zakhari Jaiyeola Olupona</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fdf4e5; color: #000; margin: 0; padding: 20px; }
+    .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { color: #035dee; text-align: center; }
+    h2 { text-align: center; font-weight: normal; color: #444; }
+    p.notice { text-align: center; max-width: 820px; margin: 10px auto 30px; font-size: 15px; color: #555; }
+    #searchBox { width: 100%; padding: 10px; font-size: 16px; margin-bottom: 20px; border-radius: 5px; border: 1px solid #ccc; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+    th { background: #eee; }
+    .badge-download { background: #035dee; color: white; text-decoration: none; padding: 6px 12px; border-radius: 5px; font-size: 0.85em; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>BRT Book of Life</h1>
+    <h2>Registered Document Portfolio: Zakhari Jaiyeola Olupona</h2>
+    <p class="notice">
+      The following record(s) have been lawfully submitted, processed, and filed under private ecclesiastical jurisdiction.
+    </p>
+
+    <input id="searchBox" type="text" placeholder="🔍 Search by document title..." />
+
+    <table id="registry">
+      <thead>
+        <tr>
+          <th>Document Title</th>
+          <th>Date</th>
+          <th>PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td>Zakhari’s Notice</td>
+        <td>—</td>
+        <td><a class="badge-download" href="Zakhari%27s%20Notice.pdf" target="_blank">PDF</a></td>
+      </tr>
+      <tr>
+        <td>Naturalization Oath, Declaration & Certificate of Trust</td>
+        <td>—</td>
+        <td><a class="badge-download" href="Notices%20and%20Declarations%20Naturalization%20Oath%20of%20Allegiance%20to%20the%20United%20States%20of%20America%2C%20Certificate%20of%20Trust%2C%20%20ect.pdf" target="_blank">PDF</a></td>
+      </tr>
+      <tr>
+        <td>Suite of Sovereignty Documents (Status, Re‑Conveyance, Expatriation, POA Cancellation)</td>
+        <td>—</td>
+        <td><a class="badge-download" href="Suite%20of%20Documents%20of%20Sovereignty%2C%20incl.%20Declaration%20of%20Political%20Status%2C%20Re-Conveyance%20to%20the%20Land%20and%20Soil%2C%20Acts%20of%20Expatriation%2C%20Cancellation%20of%20Prior%20Powers%20of%20Attorney%2C%20etc.%20.pdf" target="_blank">PDF</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const box = document.getElementById('searchBox');
+    const rows = document.querySelectorAll('#registry tbody tr');
+    box.addEventListener('input', () => {
+      const q = box.value.toLowerCase();
+      rows.forEach(r => {
+        r.style.display = [...r.cells].some(c => (c.textContent || '').toLowerCase().includes(q)) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
